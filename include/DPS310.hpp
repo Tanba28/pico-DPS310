@@ -2,6 +2,7 @@
 #define __PICO_DPS310__
 
 #include "pico/stdlib.h"
+#include "hardware/i2c.h"
 
 class DPS310{
     public:
@@ -111,7 +112,7 @@ class DPS310{
         };
 
         /* Function */
-        DPS310();
+        DPS310(i2c_inst_t *i2c,uint sda_pin,uint scl_pin ,uint baudrate);
         ~DPS310();
         void measurement();
         float getPressure();

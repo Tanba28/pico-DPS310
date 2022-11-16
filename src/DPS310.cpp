@@ -4,11 +4,10 @@
 #include "stdio.h"
 
 /* Constructor */
-DPS310::DPS310(){
-    i2c_init(i2c1, 100 * 1000);
-    gpio_set_function(2, GPIO_FUNC_I2C);
-    gpio_set_function(3, GPIO_FUNC_I2C);
-    
+DPS310::DPS310(i2c_inst_t *i2c,uint sda_pin,uint scl_pin ,uint baudrate){
+    i2c_init(i2c, baudrate);
+    gpio_set_function(sda_pin, GPIO_FUNC_I2C);
+    gpio_set_function(scl_pin, GPIO_FUNC_I2C);
 
     //settings
     DPS310::readCoefficient();

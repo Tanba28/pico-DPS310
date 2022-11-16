@@ -14,7 +14,7 @@ int main() {
 
     sleep_ms(1000);
 
-    DPS310 dps310 = DPS310();
+    DPS310 dps310 = DPS310(i2c1,2,3,100*1000);
     while (true) {
         dps310.measurement();
         press = dps310.getPressure();
