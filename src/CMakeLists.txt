@@ -1,8 +1,8 @@
-add_library(DPS310 DPS310.cpp)
+add_library(pico-DPS310 DPS310.cpp)
 
-target_link_libraries(DPS310 pico_stdlib hardware_i2c)
+target_link_libraries(pico-DPS310 pico_stdlib hardware_i2c)
 
-target_include_directories(DPS310
+target_include_directories(pico-DPS310
     PUBLIC ${PROJECT_SOURCE_DIR}/include/
     )
 
