@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "pico/stdlib.h"
 #include "DPS310.hpp"
+#include "pico_i2c.hpp"
 
 int main() {
     stdio_init_all();
@@ -13,8 +14,10 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
     sleep_ms(1000);
+    PicoI2C *i2c = new PicoI2C(i2c1,2,3,100*1000);
 
-    DPS310 dps310 = DPS310(i2c1,2,3,100*1000);
+    // DPS310 dps310 = DPS310(i2c1,2,3,100*1000);
+    DPS310 dps310 = DPS310(i2c);
     while (true) {
         dps310.measurement();
         press = dps310.getPressure();

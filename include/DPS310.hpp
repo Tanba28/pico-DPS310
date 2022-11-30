@@ -4,6 +4,8 @@
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
+#include "pico_i2c.hpp"
+
 class DPS310{
     public:
         /* TODO:Error handle */
@@ -113,6 +115,7 @@ class DPS310{
 
         /* Function */
         DPS310(i2c_inst_t *i2c,uint sda_pin,uint scl_pin ,uint baudrate);
+        DPS310(PicoI2C *_i2c);
         ~DPS310();
         void measurement();
         float getPressure();
@@ -140,7 +143,9 @@ class DPS310{
         float pressure;
         float temperature;
         int32_t pressure_raw;
-        int32_t temperature_raw;       
+        int32_t temperature_raw;
+
+        PicoI2C *i2c = NULL;
 
         struct COEFFICIENT {
             int32_t c00,c10,c0,c1,c01,c11,c20,c21,c30;
@@ -153,6 +158,9 @@ class DPS310{
         void setkP();
         void setkT();
         int32_t twosComplement(int32_t coef,uint8_t digit);
+
+        void i2c_write(uint8_t *reg,const uint8_t *src,size_t len);
+        void i2c_read(uint8_t *reg,uint8_t *dst,size_t len);
 
         /* REGISTER */
         enum REG : uint8_t{
