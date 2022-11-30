@@ -31,7 +31,7 @@ void DPS310::measurement(){
     uint8_t buf[6];
     
     var = DPS310::REG::PSR_B2;
-    i2c_read(&var,buf,6);
+    i2c_read(var,buf,6);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,&var,1,true);
     // i2c_read_blocking(i2c1,DPS310::REG::ADDRESS,buf,6,false);
 
@@ -70,7 +70,7 @@ void DPS310::pressureConfiguration(
     
     var[0] = DPS310::REG::PRS_CFG;
     var[1] = this->press_config.byte;
-    i2c_write(&var[0],&var[1],1);
+    i2c_write(var[0],&var[1],1);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,var,2,false);
 
     DPS310::setkP();    
@@ -89,7 +89,7 @@ void DPS310::temperatureConfiguration(
     
     var[0] = DPS310::REG::TMP_CFG;
     var[1] = this->temp_config.byte;
-    i2c_write(&var[0],&var[1],1);
+    i2c_write(var[0],&var[1],1);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,var,2,false);
 
     DPS310::setkT();
@@ -102,7 +102,7 @@ void DPS310::measureConfiguration(MEAS_MODE meas_ctrl){
     
     var[0] = DPS310::REG::MEAS_CFG;
     var[1] = this->meas_config.byte;
-    i2c_write(&var[0],&var[1],1);
+    i2c_write(var[0],&var[1],1);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,var,2,false);
 }
 
@@ -127,7 +127,7 @@ void DPS310::interruptFifoConfiguration(SPI_MODE spi_mode,
     
     var[0] = DPS310::REG::CFG_RES;
     var[1] = this->int_fifo_config.byte;
-    i2c_write(&var[0],&var[1],1);
+    i2c_write(var[0],&var[1],1);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,var,2,false);    
 
 }
@@ -140,7 +140,7 @@ void DPS310::readCoefficient(){
     uint32_t mask;
 
     var = DPS310::REG::COEF;
-    i2c_read(&var,buf,18);
+    i2c_read(var,buf,18);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,&var,1,true);
     // i2c_read_blocking(i2c1,DPS310::REG::ADDRESS,buf,18,false);
 
@@ -164,7 +164,7 @@ uint8_t DPS310::readProductId(){
     uint8_t buf;
     
     var = DPS310::REG::PRODUCT_ID;
-    i2c_read(&var,&buf,1);
+    i2c_read(var,&buf,1);
     // i2c_write_blocking(i2c1,DPS310::REG::ADDRESS,&var,1,true);
     // i2c_read_blocking(i2c1,DPS310::REG::ADDRESS,&buf,1,false);
 
@@ -237,9 +237,9 @@ int32_t DPS310::twosComplement(int32_t coef,uint8_t digit){
     return coef;
 }
 
-void DPS310::i2c_write(uint8_t *reg,const uint8_t *src,size_t len){
+void DPS310::i2c_write(uint8_t reg,const uint8_t *src,size_t len){
     i2c->write(REG::ADDRESS,reg,src,len);
 }
-void DPS310::i2c_read(uint8_t *reg,uint8_t *dst,size_t len){
+void DPS310::i2c_read(uint8_t reg,uint8_t *dst,size_t len){
     i2c->read(REG::ADDRESS,reg,dst,len);
 }

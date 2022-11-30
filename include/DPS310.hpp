@@ -121,12 +121,12 @@ class DPS310{
         float getPressure();
         float getTemperature();
         void pressureConfiguration(
-            PRESSURE_MEAS_RATE pm_rate = PRESSURE_MEAS_RATE::RATE_4Hz,
-            PRESSURE_OVER_SAMPLING_RATE pm_prc = PRESSURE_OVER_SAMPLING_RATE::RATE_8Hz);
+            PRESSURE_MEAS_RATE pm_rate = PRESSURE_MEAS_RATE::RATE_128Hz,
+            PRESSURE_OVER_SAMPLING_RATE pm_prc = PRESSURE_OVER_SAMPLING_RATE::RATE_4Hz);
         void temperatureConfiguration(
             TEMPERATURE_MEAS_EXTERNAL tmp_ext = TEMPERATURE_MEAS_EXTERNAL::EXTERNAL,
-            TEMPERATURE_MEAS_RATE tmp_rate = TEMPERATURE_MEAS_RATE::RATE_4Hz,
-            TEMPERATURE_OVER_SAMPLING_RATE tmp_prc = TEMPERATURE_OVER_SAMPLING_RATE::RATE_8Hz);
+            TEMPERATURE_MEAS_RATE tmp_rate = TEMPERATURE_MEAS_RATE::RATE_128Hz,
+            TEMPERATURE_OVER_SAMPLING_RATE tmp_prc = TEMPERATURE_OVER_SAMPLING_RATE::RATE_4Hz);
         void measureConfiguration(MEAS_MODE meas_ctrl = MEAS_MODE::CONTINUOUS_PRESSURE_AND_TEMPERATURE_MEAS);
         void interruptFifoConfiguration(
             SPI_MODE spi_mode = SPI_MODE::FOUR_WIRE,
@@ -159,8 +159,8 @@ class DPS310{
         void setkT();
         int32_t twosComplement(int32_t coef,uint8_t digit);
 
-        void i2c_write(uint8_t *reg,const uint8_t *src,size_t len);
-        void i2c_read(uint8_t *reg,uint8_t *dst,size_t len);
+        void i2c_write(uint8_t reg,const uint8_t *src,size_t len);
+        void i2c_read(uint8_t reg,uint8_t *dst,size_t len);
 
         /* REGISTER */
         enum REG : uint8_t{
