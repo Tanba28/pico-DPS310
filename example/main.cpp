@@ -4,8 +4,6 @@
 #include "pico_i2c.hpp"
 #include "task_base.hpp"
 
-extern PicoDmaI2C *pico_dma_i2c;
-
 class DPS310Task : public TaskBase{
     public:
         DPS310Task():TaskBase("dps310_task",3,4096){
